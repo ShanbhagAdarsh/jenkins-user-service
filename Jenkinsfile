@@ -36,7 +36,7 @@ pipeline {
         stage('dockerize') {
             steps {
                
-                sh 'docker build -t user-service:latest'
+                sh 'docker build -t user-service:latest .'
 
             }
         }
