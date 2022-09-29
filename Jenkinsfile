@@ -65,7 +65,7 @@ pipeline {
         
        stage('docker publish') {
        steps{
-		       withDockerRegistry(credentialsId: 'docker_id') {
+		       withDockerRegistry([credentialsId: 'docker_id',url:'']) {
 		
    	   		   sh "docker push ${DOCKER_REPO}/${DOCKER_IMG_NAME}:${env.BUILD_ID}"
    	   		   sh "docker push ${DOCKER_REPO}/${DOCKER_IMG_NAME}:latest"
