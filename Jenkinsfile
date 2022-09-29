@@ -44,23 +44,23 @@ pipeline {
         stage('dockerize') {
             steps {
                
-                sh "docker build -t ${DOCKER_IMG_NAME}:latest -t ${DOCKER_IMG_NAME}:${env.BUILD_ID} ."
+                sh "docker build -t ${DOCKER_REPO}/${DOCKER_IMG_NAME}:latest -t ${DOCKER_REPO}/${DOCKER_IMG_NAME}:${env.BUILD_ID} ."
 
             }
         }
         
-       // stage('integration tests') {
-        //    steps {
+       /* stage('integration tests') {
+            steps {
                
-        //        sh "docker run -dp 7070:8080 --rm --name ${DOCKER_TMP_CONTAINER_NAME} ${DOCKER_IMG_NAME}:latest"
+                sh "docker run -dp 7070:8080 --rm --name ${DOCKER_TMP_CONTAINER_NAME} ${DOCKER_IMG_NAME}:latest"
                 
-        //        sleep 30
+                sleep 30
                 
-        //        sh 'curl -i http://localhost:7070/api/users'
+                sh 'curl -i http://localhost:7070/api/users'
                 
 
-        //    }
-     //   }
+            }
+        }*/
         
         
        stage('docker publish') {
@@ -79,7 +79,7 @@ pipeline {
     post {
             always {
                
-                sh "docker stop ${DOCKER_TMP_CONTAINER_NAME}"
+                sh "docker stop ${DOCKER_REPO}/${DOCKER_TMP_CONTAINER_NAME}"
                 
                 sh "docker rmi ${DOCKER_REPO}/${DOCKER_IMG_NAME}:latest ${DOCKER_REPO}/${DOCKER_IMAGE_NAME}:${env.BUILD_ID}"
 
