@@ -62,7 +62,6 @@ pipeline {
             }
         }
         
-        
        stage('docker publish') {
        steps{
 		       withDockerRegistry([credentialsId: 'docker_id',url:'']) {
